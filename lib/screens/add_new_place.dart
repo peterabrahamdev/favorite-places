@@ -1,3 +1,4 @@
+import 'package:favorite_places/widgets/new_place_form.dart';
 import 'package:flutter/material.dart';
 
 class AddNewPlaceScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class _AddNewPlaceScreenState extends State<AddNewPlaceScreen> {
       appBar: AppBar(
         title: const Text('Add new place'),
       ),
+      body: const NewPlaceForm(),
     );
   }
 }
