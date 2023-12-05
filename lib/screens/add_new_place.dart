@@ -14,7 +14,6 @@ class _AddNewPlaceScreenState extends State<AddNewPlaceScreen> {
       appBar: AppBar(
         title: const Text('Add new place'),
       ),
-      
     );
   }
 }
