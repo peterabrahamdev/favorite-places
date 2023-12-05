@@ -8,22 +8,11 @@ class PlaceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return ListTile(
+      title: Text(place.title),
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => PlaceDetailsScreen(place: place),
       )),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              place.title,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
