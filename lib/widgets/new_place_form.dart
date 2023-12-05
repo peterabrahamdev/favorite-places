@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:favorite_places/models/place.dart';
 import 'package:favorite_places/providers/place_provider.dart';
 import 'package:favorite_places/widgets/image_input.dart';
+import 'package:favorite_places/widgets/location_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -56,6 +57,10 @@ class _NewPlaceFormState extends ConsumerState<NewPlaceForm> {
             ImageInput(onPickImage: (image) {
               _selectedImage = image;
             }),
+            const SizedBox(
+              height: 30,
+            ),
+            const LocationInput(),
             const SizedBox(
               height: 30,
             ),
