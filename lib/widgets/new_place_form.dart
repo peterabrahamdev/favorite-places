@@ -21,6 +21,7 @@ class _NewPlaceFormState extends ConsumerState<NewPlaceForm> {
     }
     _formKey.currentState!.save();
     ref.watch(placeProvider.notifier).addPlace(Place(title: _placeTitle));
+    Navigator.of(context).pop();
   }
 
   @override
