@@ -1,5 +1,6 @@
 import 'package:favorite_places/models/place.dart';
 import 'package:favorite_places/providers/place_provider.dart';
+import 'package:favorite_places/widgets/image_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -47,18 +48,15 @@ class _NewPlaceFormState extends ConsumerState<NewPlaceForm> {
             const SizedBox(
               height: 30,
             ),
-            ElevatedButton(
-              style: const ButtonStyle(
-                  fixedSize: MaterialStatePropertyAll(Size(150, 10))),
+            const ImageInput(),
+            const SizedBox(
+              height: 30,
+            ),
+            ElevatedButton.icon(
               onPressed: _submit,
-              child: const Row(
-                children: [
-                  Icon(Icons.add),
-                  SizedBox(width: 5),
-                  Text('Add Place'),
-                ],
-              ),
-            )
+              icon: const Icon(Icons.add),
+              label: const Text('Add Place'),
+            ),
           ],
         ),
       ),
