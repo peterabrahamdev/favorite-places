@@ -9,6 +9,10 @@ class PlaceItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: CircleAvatar(
+        radius: 26,
+        backgroundImage: FileImage(place.image),
+      ),
       title: Text(place.title),
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => PlaceDetailsScreen(place: place),
