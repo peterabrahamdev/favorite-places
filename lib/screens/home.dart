@@ -17,6 +17,15 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: const Icon(Icons.add),
         ),
       ]),
+      body: Center(
+        child: Text(
+          'No places added yet',
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall!
+              .copyWith(color: Colors.white),
+        ),
+      ),
     );
   }
 }
