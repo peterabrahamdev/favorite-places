@@ -1,6 +1,6 @@
 import 'package:favorite_places/models/place.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_config/flutter_config.dart';
 
 class PlaceDetailsScreen extends StatelessWidget {
   const PlaceDetailsScreen({super.key, required this.place});
@@ -10,7 +10,7 @@ class PlaceDetailsScreen extends StatelessWidget {
   String get locationImage {
     final lat = place.location.latitude;
     final lng = place.location.longitude;
-    final key = dotenv.env['GOOGLE_MAPS_API_KEY'];
+    final key = FlutterConfig.get('GOOGLE_MAPS_API_KEY');
 
     return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng=&zoom=13&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=$key';
   }

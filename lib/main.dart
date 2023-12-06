@@ -1,8 +1,8 @@
 import 'package:favorite_places/screens/home.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_config/flutter_config.dart';
 
 final colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
@@ -27,7 +27,9 @@ final theme = ThemeData().copyWith(
 );
 
 Future main() async {
-  await dotenv.load(fileName: '.env');
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterConfig.loadEnvVariables();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 

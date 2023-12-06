@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:favorite_places/models/place.dart';
 import 'package:favorite_places/providers/place_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
@@ -28,7 +28,7 @@ class _LocationInputState extends ConsumerState<LocationInput> {
 
     final lat = _pickedLocation!.latitude;
     final lng = _pickedLocation!.longitude;
-    final key = dotenv.env['GOOGLE_MAPS_API_KEY'];
+    final key = FlutterConfig.get('GOOGLE_MAPS_API_KEY');
 
     return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng=&zoom=13&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=$key';
   }
@@ -75,7 +75,7 @@ class _LocationInputState extends ConsumerState<LocationInput> {
         _isGettingLocation = false;
       });
     } else {
-      final key = dotenv.env['GOOGLE_MAPS_API_KEY'];
+      final key = FlutterConfig.get('GOOGLE_MAPS_API_KEY');
 
       final url = Uri.parse(
           'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$key');

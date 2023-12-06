@@ -41,7 +41,6 @@ dependencies:
   flutter_riverpod: ^2.4.9
   image_picker: ^1.0.4
   location: ^5.0.3
-  flutter_dotenv: ^5.1.0
   google_maps_flutter: ^2.5.0
   flutter_config: ^2.0.2
 
