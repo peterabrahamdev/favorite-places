@@ -14,6 +14,7 @@ class PlaceItem extends StatelessWidget {
         backgroundImage: FileImage(place.image),
       ),
       title: Text(place.title),
+      subtitle: Text(place.location.address),
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => PlaceDetailsScreen(place: place),
       )),
