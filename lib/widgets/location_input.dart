@@ -1,21 +1,23 @@
 import 'dart:convert';
 
 import 'package:favorite_places/models/place.dart';
+import 'package:favorite_places/providers/place_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
 
-class LocationInput extends StatefulWidget {
+class LocationInput extends ConsumerStatefulWidget {
   const LocationInput({super.key, required this.onPickLocation});
 
   final void Function(PlaceLocation location) onPickLocation;
 
   @override
-  State<LocationInput> createState() => _LocationInputState();
+  ConsumerState<LocationInput> createState() => _LocationInputState();
 }
 
-class _LocationInputState extends State<LocationInput> {
+class _LocationInputState extends ConsumerState<LocationInput> {
   PlaceLocation? _pickedLocation;
   var _isGettingLocation = false;
 
@@ -37,6 +39,7 @@ class _LocationInputState extends State<LocationInput> {
     bool serviceEnabled;
     PermissionStatus permissionGranted;
     LocationData locationData;
+    final locationCache = ref.read(placeLocationCacheProvider);
 
     serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
@@ -66,24 +69,34 @@ class _LocationInputState extends State<LocationInput> {
       return;
     }
 
-    final key = dotenv.env['GOOGLE_MAPS_API_KEY'];
+    if (locationCache.containsKey('$lat,$lng')) {
+      setState(() {
+        _pickedLocation = locationCache['$lat,$lng'];
+        _isGettingLocation = false;
+      });
+    } else {
+      final key = dotenv.env['GOOGLE_MAPS_API_KEY'];
 
-    final url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$key');
+      final url = Uri.parse(
+          'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$key');
 
-    final response = await http.get(url);
-    final resData = json.decode(response.body);
+      final response = await http.get(url);
+      final resData = json.decode(response.body);
 
-    final address = resData['results'][0]['formatted_address'];
+      final address = resData['results'][0]['formatted_address'];
 
-    setState(() {
-      _pickedLocation = PlaceLocation(
-        latitude: lat,
-        longitude: lng,
-        address: address,
-      );
-      _isGettingLocation = false;
-    });
+      setState(() {
+        _pickedLocation = PlaceLocation(
+          latitude: lat,
+          longitude: lng,
+          address: address,
+        );
+        _isGettingLocation = false;
+      });
+      ref
+          .watch(placeLocationCacheProvider.notifier)
+          .cache('$lat,$lng', _pickedLocation!);
+    }
 
     widget.onPickLocation(_pickedLocation!);
   }
