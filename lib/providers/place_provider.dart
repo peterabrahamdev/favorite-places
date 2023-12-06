@@ -14,3 +14,16 @@ class PlaceNotifier extends StateNotifier<List<Place>> {
 
 final placeProvider =
     StateNotifierProvider<PlaceNotifier, List<Place>>((ref) => PlaceNotifier());
+
+class PlaceLocationCacheNotifier
+    extends StateNotifier<Map<String, PlaceLocation>> {
+  PlaceLocationCacheNotifier() : super({});
+
+  void cache(String key, PlaceLocation location) {
+    state = {...state, key: location};
+  }
+}
+
+final placeLocationCacheProvider = StateNotifierProvider<
+    PlaceLocationCacheNotifier,
+    Map<String, PlaceLocation>>((ref) => PlaceLocationCacheNotifier());
